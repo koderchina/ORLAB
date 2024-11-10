@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Skup podataka o punionicama električnih vozila na području Osijeka i Zagreba. Punionice su organzirane tako da imaju vezo roditelj-dijete između punionice i stanica za punjenje. Podaci ovog skupa dostupni su za preuzimanje u JSON i CSV formatu.">
+  <meta name="author" content="Borna Krušlin">
+  <meta name="license" content="Creative Commons Zero v1.0 Universal"
+  <meta name="contact information" content="borna.kruslin@fer.hr"
+  <title>HomePage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    a:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Podaci o punionicama električnih vozila na području Osijeka i Zagreba</h1>
+  <button onclick="downloadJSON()">Preuzmi JSON</button>
+  <button onclick="downloadCSV()">Preuzmi CSV</button>
+  <a href="/dataset">Pretraga baze</a>
+</body>
+<script>
+    function downloadJSON(){
+        window.location.href = '/punionice.json';
+    }
+    function downloadCSV(){
+        window.location.href = '/punionice.csv';
+    }
+</script>
+</html>

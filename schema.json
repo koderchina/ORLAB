@@ -1,0 +1,135 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "array",
+    "default": [],
+    "title": "Punionice",
+    "description": "Podatci o punionicama električnih vozila",
+    "items": {
+        "type": "object",
+        "title": "punionice",
+        "description": "Objekt punionice",
+        "required": [
+            "id_punionice",
+            "naziv_punionice",
+            "adresa",
+            "geografska_sirina",
+            "geografska_duzina",
+            "vrsta_punjenja",
+            "broj_punjaca",
+            "snaga_punjenja",
+            "cijena_po_kwh",
+            "otvorenje",
+            "zatvaranje",
+            "stanice"
+        ],
+        "properties": {
+            "id_punionice": {
+                "type": "integer",
+                "title": "ID punionice",
+                "description": "Jedinstveni identifikator punionice"
+            },
+            "naziv_punionice": {
+                "type": "string",
+                "title": "Naziv punionice",
+                "description": "Naziv punionice"
+            },
+            "adresa": {
+                "type": "string",
+                "title": "Adresa",
+                "description": "Adresa punionice"
+            },
+            "geografska_sirina": {
+                "type": "string",
+                "title": "Geografska širina",
+                "description": "Geografska širina punionice"
+            },
+            "geografska_duzina": {
+                "type": "string",
+                "title": "Geografska dužina",
+                "description": "Geografska dužina punionice"
+            },
+            "vrsta_punjenja": {
+                "type": "string",
+                "title": "Vrsta punjenja",
+                "description": "Maksimalna brzina punjenja na punionici"
+            },
+            "broj_punjaca": {
+                "type": "integer",
+                "title": "Broj punjača",
+                "description": "Broj dostupnih punjača na punionici"
+            },
+            "snaga_punjenja": {
+                "type": "string",
+                "title": "Snaga punjenja",
+                "description": "Maksimalna snaga punjenja na punionici"
+            },
+            "cijena_po_kwh": {
+                "type": [
+                    "string",
+                    "null"
+                ],
+                "title": "Cijena po kWh",
+                "description": "Cijena punjenja u eurima po kWh"
+            },
+            "otvorenje": {
+                "type": [
+                    "null",
+                    "string"
+                ],
+                "title": "Otvorrenje",
+                "description": "Vrijeme otvaranja punionice"
+            },
+            "zatvaranje": {
+                "type": [
+                    "null",
+                    "string"
+                ],
+                "title": "Zatvaranje",
+                "description": "Vrijeme zatvaranja punionice"
+            },
+            "stanice": {
+                "type": "array",
+                "title": "Stanice",
+                "description": "Podaci o stanicama za punjenje na punionici",
+                "items": {
+                    "type": "object",
+                    "title": "Stanica za punjenje",
+                    "description": "Podaci o stanici za punjenje",
+                    "required": [
+                        "id_stanice",
+                        "tip_konektora",
+                        "snaga_stanice",
+                        "pruzatelj"
+                    ],
+                    "properties": {
+                        "id_stanice": {
+                            "type": "integer",
+                            "title": "ID stanice",
+                            "description": "Jedinstveni identifikator stanice za punjenje"
+                        },
+                        "tip_konektora": {
+                            "type": "string",
+                            "title": "Tip konektora",
+                            "description": "Tip konektora na stanici za punjenje"
+                        },
+                        "snaga_stanice": {
+                            "type": "string",
+                            "title": "Snaga stanice",   
+                            "description": "Snaga stanice za punjenje"
+                        },
+                        "pruzatelj": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Pružatelj",
+                            "description": "Poveznica na pružatelja usluge punjenja"
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
