@@ -1,0 +1,434 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Charging Stations API",
+    "version": "1.0.0",
+    "description": "API for managing charging stations"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/stations": {
+      "get": {
+        "summary": "Get all charging stations",
+        "responses": {
+          "200": {
+            "description": "List of all charging stations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": { "type": "array", "items": { "$ref": "#/components/schemas/Station" } }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new charging station",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/StationInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Station added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": { "$ref": "#/components/schemas/Station" }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stations/{id_punionice}": {
+      "get": {
+        "summary": "Get a charging station by ID",
+        "parameters": [
+          {
+            "name": "id_punionice",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Station found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": { "$ref": "#/components/schemas/Station" }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Station not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a charging station by ID",
+        "parameters": [
+          {
+            "name": "id_punionice",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/StationInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Station updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": { "$ref": "#/components/schemas/Station" }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a charging station by ID",
+        "parameters": [
+          {
+            "name": "id_punionice",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Station deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": {
+                      "type": "object",
+                      "properties": {
+                        "links": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "href": { "type": "string" },
+                              "rel": { "type": "string" },
+                              "type": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Station not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stations/provider/{provider}": {
+      "get": {
+        "summary": "Get stations by provider",
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of stations for provider",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": { "type": "array", "items": { "$ref": "#/components/schemas/Station" } }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stations/connector/{connector}": {
+      "get": {
+        "summary": "Get stations by connector type",
+        "parameters": [
+          {
+            "name": "connector",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of stations for connector type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": { "type": "array", "items": { "$ref": "#/components/schemas/Station" } }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stations/power/{power}": {
+      "get": {
+        "summary": "Get stations by minimum power",
+        "parameters": [
+          {
+            "name": "power",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of stations with power above specified value",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "message": { "type": "string" },
+                    "response": { "type": "array", "items": { "$ref": "#/components/schemas/Station" } }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Station": {
+        "type": "object",
+        "properties": {
+          "id_punionice": { "type": "integer" },
+          "naziv_punionice": { "type": "string" },
+          "adresa": { "type": "string" },
+          "geografska_sirina": { "type": "number" },
+          "geografska_duzina": { "type": "number" },
+          "vrsta_punjenja": { "type": "string" },
+          "broj_punjaca": { "type": "integer" },
+          "snaga_punjenja": { "type": "number" },
+          "cijena_po_kwh": { "type": "number" },
+          "otvorenje": { "type": "string" },
+          "zatvaranje": { "type": "string" },
+          "stanicazapunjenje": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id_stanice": { "type": "integer" },
+                "tip_konektora": { "type": "string" },
+                "snaga_stanice": { "type": "number" },
+                "pruzatelj": { "type": "string" }
+              }
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "href": { "type": "string" },
+                "rel": { "type": "string" },
+                "type": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "StationInput": {
+        "type": "object",
+        "properties": {
+          "naziv_punionice": { "type": "string" },
+          "adresa": { "type": "string" },
+          "geografska_sirina": { "type": "number" },
+          "geografska_duzina": { "type": "number" },
+          "vrsta_punjenja": { "type": "string" },
+          "broj_punjaca": { "type": "integer" },
+          "snaga_punjenja": { "type": "number" },
+          "cijena_po_kwh": { "type": "number" },
+          "otvorenje": { "type": "string" },
+          "zatvaranje": { "type": "string" },
+          "stanicazapunjenje": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tip_konektora": { "type": "string" },
+                "snaga_stanice": { "type": "number" },
+                "pruzatelj": { "type": "string" }
+              }
+            }
+          }
+        },
+        "required": [
+          "naziv_punionice",
+          "adresa",
+          "geografska_sirina",
+          "geografska_duzina",
+          "vrsta_punjenja",
+          "broj_punjaca",
+          "snaga_punjenja",
+          "cijena_po_kwh",
+          "otvorenje",
+          "zatvaranje",
+          "stanicazapunjenje"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}
