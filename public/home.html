@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Skup podataka o punionicama električnih vozila na području Osijeka i Zagreba. Punionice su organzirane tako da imaju vezo roditelj-dijete između punionice i stanica za punjenje. Podaci ovog skupa dostupni su za preuzimanje u JSON i CSV formatu.">
   <meta name="author" content="Borna Krušlin">
-  <meta name="license" content="Creative Commons Zero v1.0 Universal"
-  <meta name="contact information" content="borna.kruslin@fer.hr"
+  <meta name="license" content="Creative Commons Zero v1.0 Universal">
+  <meta name="contact information" content="borna.kruslin@fer.hr">
   <title>HomePage</title>
   <style>
     body {
@@ -62,6 +62,10 @@
   <button onclick="downloadJSON()">Preuzmi JSON</button>
   <button onclick="downloadCSV()">Preuzmi CSV</button>
   <a href="/dataset">Pretraga baze</a>
+  <a id="login" href="/login">Prijava</a>
+  <a id="profile" href="/profile" style="display:none;">Korisnički profil</a>
+  <a id="refresh" href="/refresh" style="display:none;">Osvježi preslike</a>
+  <a id="logout" href="/logout" style="display:none;">Odjava</a>
 </body>
 <script>
     function downloadJSON(){
@@ -70,5 +74,32 @@
     function downloadCSV(){
         window.location.href = '/punionice.csv';
     }
+
+    // Function to check if the user is authenticated
+    function checkAuth() {
+        fetch('/profile', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('profile').style.display = 'inline-block';
+                document.getElementById('refresh').style.display = 'inline-block';
+                document.getElementById('logout').style.display = 'inline-block';
+            } else {
+                document.getElementById('login').style.display = 'inline-block';
+                document.getElementById('profile').style.display = 'none';
+                document.getElementById('refresh').style.display = 'none';
+                document.getElementById('logout').style.display = 'none';
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Check authentication status on page load
+    window.onload = checkAuth;
 </script>
 </html>
